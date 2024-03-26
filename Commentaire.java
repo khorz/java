@@ -1,51 +1,48 @@
-package projetFilms;
+package projet;
+
+
 
 import java.util.Date;
-
 public class Commentaire {
-    private String auteur;
-    private Date date;
-    private String corps;
-    private Film film;
+	private String auteur;
+	private String paragraphe;
+	private  Date date_com;
+	private int note;
+	
+	
+	
+	
+	public Commentaire(String auteur,Date date_adj,int note,String paragraphe) {
+		this.auteur=auteur;
+		this.date_com= date_adj;
+		this.note=note;
+		this.paragraphe=paragraphe;
+	}
+	
+	public String getParagraphe() {
+		return paragraphe;
+	}
 
-    // Constructeur
-    public Commentaire(String auteur, Date date, String corps, Film film) {
-        this.auteur = auteur;
-        this.date = date;
-        this.corps = corps;
-        this.film = film;
-    }
+	public void setParagraphe(String paragraphe) {
+		this.paragraphe = paragraphe;
+	}
 
-    // Getters et Setters
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getCorps() {
-        return corps;
-    }
-
-    public void setCorps(String corps) {
-        this.corps = corps;
-    }
-
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }
+	public String getAuteur() {
+		return auteur;
+	}
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
+	}
+	public Date getDate_com() {
+		return date_com;
+	}
+	public void setDate_com(Date date_com) {
+		this.date_com = date_com;
+	}
+	public int getNote() {
+		return note;
+	}
+	public void setNote(int note) {
+		this.note = note;
+	}
 }
