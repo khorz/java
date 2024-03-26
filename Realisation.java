@@ -5,20 +5,24 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Realisation {
-  private String titre;
-  private Date dateProd;
-  private String resume;
-  private double prix;
-  private double moyenne;
-  private Genre genre;
+public class Realisation {
+  private String nom;
+  private String prenom*;
 
-  public Realisation(String titre, Date dateProd, String resume, double prix, double moyenne, Genre genre) {
-    this.titre = titre;
-    this.dateProd = dateProd;
-    this.resume = resume;
-    this.prix = prix;
-    this.moyenne = moyenne;
-    this.genre = genre;
+  public Realisation(String nom, String prenom) {
+    this.nom = nom;
+    this.prenom = prenom;
+  }
+  public String getNom() {
+    return nom;
+  }
+  public void setNom(String nom) {
+    this.nom=nom;
+  }
+  public String getPrenom() {
+     return prenom;
+  }
+  public void setPrenom(String prenom) {
+    this.prenom=prenom;
   }
 }
