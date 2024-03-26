@@ -1,6 +1,6 @@
 package projetFilms;
 
-public abstract class Realisation extends Films {
+public abstract class Realisation {
   private String titre;
   private Date dateProd;
   private String resume;
