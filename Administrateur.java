@@ -46,7 +46,7 @@ public class Administrateur {
     public Set<Commentaire> getCommentaires() {
       return commentaires;
     }
-    public void setCommentaires(Set<Commenatire> commentaires) {
+    public void setCommentaires(Set<Commentaire> commentaires) {
       this.commentaires=commentaires;
     }
     public float getNote() {
