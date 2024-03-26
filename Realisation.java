@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Realisation {
   private String nom;
-  private String prenom*;
+  private String prenom;
 
   public Realisation(String nom, String prenom) {
     this.nom = nom;
