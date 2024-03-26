@@ -1,6 +1,6 @@
 package projetFilms;
 
-public class Acteur extends Films {
+public class Acteur {
   private String nom;
   private String prenom;
 
