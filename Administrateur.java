@@ -55,5 +55,4 @@ public class Administrateur {
     public void setNote(float note) {
       this.note=note;
     }
-  }
 }
