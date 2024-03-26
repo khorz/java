@@ -38,5 +38,6 @@ public class Facture {
         } else {
             System.out.println("Paiement de " + getPrixTotalFilm(selection) + " € effectué.");
         }
+        selection.clear();
     }
 }
