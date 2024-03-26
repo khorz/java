@@ -19,4 +19,41 @@ public class Administrateur {
     this.commentaires=commentaires;
     this.note=note;
   }
+    public String getId() {
+      return id;
+    }
+    public void setId(String id) {
+      this.id=id;
+    }
+    public String getMdp() {
+      return mdp;
+    }
+    public void setMdp(String mdp) {
+      this.mdp=mdp;
+    }
+    public String getAuteur() {
+      return auteur;
+    }
+    public void setAuteur(String auteur) {
+      this.auteur=auteur;
+    }
+    public LocalDate getDate() {
+      return date;
+    }
+    public void setDate(LocalDate date) {
+      this.date=date;
+    }
+    public Set<Commentaire> getCommentaires() {
+      return commentaires;
+    }
+    public void setCommentaires(Set<Commenatire> commentaires) {
+      this.commentaires=commentaires;
+    }
+    public float getNote() {
+      return note;
+    }
+    public void setNote(float note) {
+      this.note=note;
+    }
+  }
 }
