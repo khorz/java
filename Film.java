@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Scanner;
+
 
 
 import java.io.*;
@@ -75,20 +75,22 @@ public class Film {
 			//vérifie si les coms sont pas désactivés
 			if(!this.disable) {			
 				//vérifie si il a deja mis un com
-				if (!this.comByUser.containsKey(user.getMail()) ) {//regarder le get de benjamin
+				if (!this.comByUser.containsKey(user.getMail()) ) {
 					
 					String auteur=user.getMail();
-					Scanner myObj=new Scanner(System.in);
+					Scanner scanner = new Scanner(System.in);
 					System.out.println("Entrez une note entre 0 et 10");
-					int note = myObj.nextInt();
-					while ((note < 0) || (note > 10)) {
+					int note = scanner.nextInt();
+					while (note < 0 || note > 10) {
 						System.out.println("Entrez une note entre 0 et 10");
-						note = myObj.nextInt();
+						note = scanner.nextInt();
 					}
+					scanner.close();
+					Scanner scanner2 = new Scanner(System.in);
 					System.out.println("Ecrivez votre commentaire");
-					String paragraphe = myObj.nextLine();
+					String paragraphe = scanner2.nextLine();
 					// ecrire note et paragraphe
-					myObj.close();
+					scanner2.close();
 					
 					Date aujourdhui = new Date();
 					Commentaire com = new Commentaire(auteur,aujourdhui,note,paragraphe);
@@ -106,9 +108,14 @@ public class Film {
 					 }
 					 this.moyenne=moy/(this.commentaires.size());
 					return true;
-				}	
+				}
+				System.out.println("Vous avez déjà mis un com");
+				return false;
 			}
+			System.out.println("les coms sont désactivés");
+			return false;
 		}
+		System.out.println("vous n'avez pas encore vu le film");
 		return false;
 	}
 	
