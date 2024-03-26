@@ -1,5 +1,10 @@
 package projetFilms;
 
+import java.time.LocalDate;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
+
 public abstract class Realisation {
   private String titre;
   private Date dateProd;
