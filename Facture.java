@@ -24,7 +24,8 @@ public class Facture {
     }
     //méthode 
 
-    public double getPrixTotalFilm(List<Film> selection){  //méthode pour avoir le prix total des film
+    public double getPrixTotalFilm(Panier panier){  //méthode pour avoir le prix total des film
+        selection=panier.getSelection();,
         double prixTotal = 0;                              // mettre les prix en double parce que 2 décimales
         for (Film film : selection) {
             prixTotal += film.getPrix();
@@ -32,7 +33,8 @@ public class Facture {
         return prixTotal;
     }
 
-    public void payer(Panier panier, Utilisateur user) {
+    public void payer(Panier panier) {
+        user=panier.getUser();
         boolean abonnement = user.getStatutAbonnement();
         if (abonnement) {
             System.out.println("Paiement de " + getPrixTotalFilm(panier.getSelection()) * 0.95 + " € effectué.");
