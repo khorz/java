@@ -259,7 +259,15 @@ public class Utilisateur {
 		
 	}
 
-	
+	public void visuInfos() {
+    		System.out.println("Mail : "+this.mail);
+    		System.out.println("Nom : " +this.nom);
+    		System.out.println("Prenom : "+this.prenom);
+    		System.out.println("Age : "+this.age);
+
+    		System.out.println("Statut de l'abonnement : "+this.statutAbonnement);
+    	
+    }
 	
 
 
