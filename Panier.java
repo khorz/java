@@ -41,14 +41,13 @@ public class Panier {
 		return null;
 	}
 	
-	private static List<Film> catalogue = lireJSON("fichier");
+	List<Film> catalogue ;
 	private List<Film> selection;
-	private List<Film> catalogueAffiche;
+
 	
 	public Panier(Utilisateur user) {
 		this.selection = new ArrayList<Film>();
-		this.catalogue = new ArrayList<Film>();
-		this.catalogueAffiche = afficherCatalogue(user);
+		
 	}
 	
 	 
@@ -68,24 +67,24 @@ public class Panier {
 	
 	// Methodes UML
 	
-	public void ajouterFilm(List<String> selection, String codeFilm) {
-		
-		if (selection.contains(codeFilm)) {
-			System.out.println("Le film est déjà séléctionné");
-		}
-		else {
-			selection.add(codeFilm);
-		}
-	}
-	
-	public void supprimerFilm(List<String> selection, String codeFilm) {
-		if (selection.contains(codeFilm)) {
-			selection.remove(codeFilm);
-		}
-		else {
-			System.out.println("Le film n'est pas dans la sélection");
-		}
-	}
+	public void ajouterFilmSelection(Film film) {
+
+        if (this.selection.contains(film)) {
+            System.out.println("Le film est déjà séléctionné");
+        }
+        else {
+            selection.add(film);
+        }
+    }
+
+    public void supprimerFilmSelection(Film film) {
+        if (this.selection.contains(film)) {
+            this.selection.remove(film);
+        }
+        else {
+            System.out.println("Le film n'est pas dans la sélection");
+        }
+    }
 	
 	public static void trierFilmsParDate(List<Film> listeFilms) {
 		
@@ -100,7 +99,7 @@ public class Panier {
 	
 	
 	
-	public static void ajouterAuCatalogue(Film film) {
+	/*public static void ajouterAuCatalogue(Film film) {
 		try {
 			if (catalogue.contains(film)){
 				System.out.println("Deja ajouté");
@@ -112,16 +111,21 @@ public class Panier {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	int tailleCatalogueAffiche = 10;
 	
-	public List<Film> afficherCatalogue(Utilisateur user){
+	
+	List<Film> catalogueAffiche = new ArrayList<Film>();
+
+	public void afficherCatalogue(Utilisateur user){
+		
+		this.catalogue = lireJSON("fichier");
+		//List <Film> catalogueAffiche = new ArrayList<Film>();
 		
 		int pourcentageFilmRecent = tailleCatalogueAffiche*70/100;
 		int pourcentageAutre = tailleCatalogueAffiche - pourcentageFilmRecent;
 		
-		List<Film> catalogueAffiche = new ArrayList<Film>();
 		Genre genrePrefere = user.genrePrefere();
 		for (Film elt : catalogue) {
 			if (!catalogue.contains(elt) && catalogueAffiche.size()<=pourcentageFilmRecent && genrePrefere==elt.getGenre()) {
@@ -136,8 +140,9 @@ public class Panier {
 			}
 		}
 		
-		
-		return catalogueAffiche;
+		for (Film elt : catalogueAffiche) {
+			elt.visuFilm();
+		}
 	}
 	
 	
@@ -153,23 +158,6 @@ public class Panier {
             }
 		}
 		catalogueAffiche = tmp;
-	}
-	
-	public static boolean EcrireJsonDirecte(Film lstCat, String fichierJSON) {
-		try {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String jsonStr = gson.toJson(lstCat);
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON));
-			bw.write(jsonStr);
-			bw.close();
-		} catch (IOException e) {
-			System.out.println(e.getStackTrace() + " : Probleme de fichier");
-			return false;
-		} catch (JsonParseException e) {
-			System.out.println(e.getStackTrace() + " : JsonParseException");
-			return false;
-		}
-		return true;
 	}
 	
 	
@@ -189,28 +177,5 @@ public class Panier {
 	
 	}
 	
-	
-	
-	
-
-
-	public static void main(String[] args) {
-		
-		Film film1 = new Film("code1","titanic",LocalDate.parse("2024-03-26"),"theme1",12,"resume1",10,Genre.values()[0]);
-		Film film2 = new Film("code2","nic",LocalDate.parse("2021-03-26"),"theme2",23,"resume2",10,Genre.values()[3]);
-		
-		ajouterAuCatalogue(film1);
-		ajouterAuCatalogue(film2);
-		
-		for (Film elt : catalogue) {
-			System.out.println(elt.getTitre());
-		}
-		Utilisateur user1 = new Utilisateur("@gmail.com","mdp123","nom","prenom","naissance","19 rue ","phrase secrete",20);
-		
-		accesResume(user1,film1);
-		user1.sAbonner();
-		accesResume(user1,film1);
-		
-	}
 	
 }
