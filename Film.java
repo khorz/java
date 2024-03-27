@@ -4,20 +4,16 @@ package projet;
 //import com.google.gson.Gson;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.HashMap;
-
-
-
 import java.io.*;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.Comparator;
+
 
 public class Film {
 	private String code;
 	private String titre;
-	private Date dateProd;
+	private LocalDate dateProd;
 	private String theme;
 	private float prix;
 	private String resume;
@@ -27,8 +23,10 @@ public class Film {
 	private ArrayList<Commentaire> commentaires;
 	private Map<String, Commentaire> comByUser;
 	private boolean disable;
+	private List<Personne> acteurs;
+	private List<Personne> realisation;
 	
-	public Film(String code,String titre,Date dateProd,String theme,float prix,String resume,float moyenne,Genre genre) {
+	public Film(String code,String titre,LocalDate dateProd,String theme,float prix,String resume,float moyenne,Genre genre,List<Personne> acteurs,List<Personne> realisation) {
 		
 		this.code=code;
 		this.titre=titre;
@@ -42,6 +40,9 @@ public class Film {
 		
 		this.commentaires= new ArrayList<Commentaire>();
 		this.comByUser = new HashMap<String, Commentaire>();
+		this.acteurs = acteurs;//ne vont pas changer 
+		this.realisation = realisation;
+		
 		
 		
 
@@ -69,6 +70,38 @@ public class Film {
 		
 	
 	
+	public List<Personne> getActeurs() {
+		return acteurs;
+	}
+
+
+
+
+
+	public void setActeurs(List<Personne> acteurs) {
+		this.acteurs = acteurs;
+	}
+
+
+
+
+
+	public List<Personne> getRealisation() {
+		return realisation;
+	}
+
+
+
+
+
+	public void setRealisation(List<Personne> realisation) {
+		this.realisation = realisation;
+	}
+
+
+
+
+
 	public boolean addCom( Utilisateur user) {// ou faire venir mail comme rm   boolean set
 		//si il l'a vu donc look historique
 		if(user.getHistorique().contains(this)) {		
@@ -78,21 +111,27 @@ public class Film {
 				if (!this.comByUser.containsKey(user.getMail()) ) {
 					
 					String auteur=user.getMail();
-					Scanner scanner = new Scanner(System.in);
+					
+					Scanner scanner1 = new Scanner(System.in);
 					System.out.println("Entrez une note entre 0 et 10");
-					int note = scanner.nextInt();
+
+				       
+					int note = scanner1.nextInt();
 					while (note < 0 || note > 10) {
 						System.out.println("Entrez une note entre 0 et 10");
-						note = scanner.nextInt();
+						note = scanner1.nextInt();
 					}
-					scanner.close();
-					Scanner scanner2 = new Scanner(System.in);
-					System.out.println("Ecrivez votre commentaire");
-					String paragraphe = scanner2.nextLine();
-					// ecrire note et paragraphe
-					scanner2.close();
 					
-					Date aujourdhui = new Date();
+					scanner1 = new Scanner(System.in);
+					System.out.println("Ecrivez votre commentaire");
+					String paragraphe = scanner1.nextLine();
+					// ecrire note et paragraphe
+					
+					
+					//LocalDate aujourdhui = LocalDate.now();
+					Random rand = new Random(); int day = rand.nextInt(30 - 1 + 1) + 1;
+					//permet de tester filtrer par date
+					LocalDate aujourdhui = LocalDate.of(2023,5,day);
 					Commentaire com = new Commentaire(auteur,aujourdhui,note,paragraphe);
 					
 					
@@ -100,7 +139,13 @@ public class Film {
 					this.comByUser.put(user.getMail(), com);
 					
 					//pour le mettre dans utilisateur
-					user.ajouterCommentaire(com,this.code);
+					if (user.ajouterCommentaire(com,this.code)) {
+						System.out.println("Com ajouter");
+					}
+					else {
+						System.out.println("erreur ajout");
+						return false;
+					}
 					//calculer moyenne
 					float moy = 0;
 					 for( Commentaire elt : this.commentaires) {
@@ -120,78 +165,165 @@ public class Film {
 	}
 	
 	
-	public boolean rmCom(String mail) {//faire venir le mail du user
+	public boolean rmCom(Utilisateur user) {//faire venir le mail du user
 		//vérifie si le user a mis un com
-		if (this.comByUser.containsKey(mail) ) {
+		if (this.comByUser.containsKey(user.getMail()) ) {
 			
-			Commentaire com=this.comByUser.get(mail);
+			Commentaire com=this.comByUser.get(user.getMail());
 			this.commentaires.remove(com);
-			this.comByUser.remove(mail);
+			this.comByUser.remove(user.getMail());
 			//calculer moyenne
 			float moy = 0;
 			 for( Commentaire elt : this.commentaires) {
 				 moy=moy+ elt.getNote();
 			 }
 			 this.moyenne=moy/(this.commentaires.size());
+			 System.out.println("com supprimé");
 			return true;
 		}	
+		System.out.println("Vous n'avez pas de com sur ce film");
 		return false;
 	}
 	
 	
-	public boolean modifCom(String mail,int note,String paragraphe) {
-		if (this.comByUser.containsKey(mail) ) {
-			Commentaire com = this.comByUser.get(mail);
+	public boolean modifCom(Utilisateur user) {
+		if (this.comByUser.containsKey(user.getMail()) ) {
+			Commentaire com = this.comByUser.get(user.getMail());
+			
+			Scanner scanner1 = new Scanner(System.in);
+			System.out.println("Entrez une note entre 0 et 10");
+
+		       
+			int note = scanner1.nextInt();
+			while (note < 0 || note > 10) {
+				System.out.println("Entrez une note entre 0 et 10");
+				note = scanner1.nextInt();
+			}
+			
+			scanner1 = new Scanner(System.in);
+			System.out.println("Ecrivez votre commentaire");
+			String paragraphe = scanner1.nextLine();
+			// ecrire note et paragraphe
 			com.setNote(note);
-			Date aujourdhui = new Date();
+			LocalDate aujourdhui = LocalDate.now();
 			com.setDate_com(aujourdhui);
 			com.setParagraphe(paragraphe);
+			System.out.println("Com modifié");
+			//calculer moyenne
+			float moy = 0;
+			 for( Commentaire elt : this.commentaires) {
+				 moy=moy+ elt.getNote();
+			 }
+			 this.moyenne=moy/(this.commentaires.size());
+			
 			return true;
 		}
+		System.out.println("Vous n'avez pas de com sur ce film");
 		return false;
 	}
 	
 	public void visuComFilm() {
 		   for(Commentaire elem: this.commentaires)
 	       {
-	       	 System.out.println (elem.getAuteur().concat(" \n"));
-	       	 System.out.println (elem.getDate_com().toString().concat(" \n"));
-	       	 System.out.println (String.valueOf(elem.getNote()).concat(" \n"));
-	       	 System.out.println (elem.getParagraphe().concat(" \n"));
+	       	 System.out.println (elem.getAuteur());
+	       	 System.out.println (elem.getDate_com().toString());
+	       	 System.out.println (String.valueOf(elem.getNote()));
+	       	 System.out.println (elem.getParagraphe().concat("\n"));
 	       }
 		
 	}
 	
-    public void classerParDate(){
-        this.commentaires.sort(new Comparator<Commentaire>() {
-            @Override
-            public int compare(Commentaire c1, Commentaire c2) {
-            	if (c1.getDate_com().compareTo(c2.getDate_com()) == 0) {
-            		return c1.getAuteur().compareTo(c2.getAuteur());
-            	}
-                return c1.getDate_com().compareTo(c2.getDate_com());
-            }
-        });
-    }
+    public boolean isDisable() {
+		return disable;
+	}
 
-    public void classerParNote() {
-    	this.commentaires.sort(new Comparator<Commentaire>(){
-    		@Override
-    		public int compare(Commentaire c1, Commentaire c2) {
-    			if (c1.getNote() == c2.getNote() ) {
-    				return c1.getAuteur().compareTo(c2.getAuteur());	
-    			}
-    			if (c1.getNote() > c2.getNote()) {
-    				return c1.getNote();
-    			}
-    			else {
-    				return c2.getNote();
-    			}
-    			
-    		}
-    	});
+
+
+
+
+	public void setDisable(boolean disable) {
+		this.disable = disable;
+	}
+
+
+
+
+
+	public ArrayList<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+
+
+
+
+	public void setCommentaires(ArrayList<Commentaire> commentaires) {
+		this.commentaires = commentaires;
+	}
+
+
+
+	public void trierParDate() {
+		Scanner rev = new Scanner(System.in);
+		System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
+		int reverse = rev.nextInt();
+		while (reverse != 0 && reverse != 1) {
+			System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
+			reverse = rev.nextInt();
+		}
+		if(reverse == 1) {
+			this.commentaires.sort(Comparator.comparing(Commentaire::getDate_com));
+		}
+		else {
+			this.commentaires.sort(Comparator.comparing(Commentaire::getDate_com).reversed());
+		}
+		
+		visuComFilm();
+	}
+
+
+
+    public void trierParNote() {
+		Scanner rev = new Scanner(System.in);
+		System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
+		int reverse = rev.nextInt();
+		while (reverse != 0 && reverse != 1) {
+			System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
+			reverse = rev.nextInt();
+		}
+		if(reverse == 1) {
+			this.commentaires.sort(Comparator.comparing(Commentaire::getNote));
+		}
+		else {
+			this.commentaires.sort(Comparator.comparing(Commentaire::getNote).reversed());
+		}
+		
+		visuComFilm();
     }
-	
+	public void visualiserPersonne(List<Personne> personnes) {
+		  for(Personne elem: personnes)
+	       {
+	       	 System.out.println (elem.getNom());
+	       	 System.out.println (elem.getPrenom().concat("\n"));
+	       }
+	}
+    
+    public void visuFilm(Utilisateur user) {
+    	System.out.println(this.titre);
+    	System.out.println(this.dateProd);
+    	System.out.println(this.theme);
+    	System.out.println(this.genre);
+    	System.out.println(this.prix);
+    	System.out.println(this.moyenne);
+    	
+    	if(user.getStatutAbonnement()) {
+    		System.out.println(this.resume);
+    	}
+    	visualiserPersonne(this.acteurs);
+    	visualiserPersonne(this.realisation);
+    	
+    	
+    }
     
     public void desactiverCom(boolean choix) {
     	this.disable=choix;
@@ -209,10 +341,10 @@ public class Film {
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-	public Date getDateProd() {
+	public LocalDate getDateProd() {
 		return dateProd;
 	}
-	public void setDateProd(Date dateProd) {
+	public void setDateProd(LocalDate dateProd) {
 		this.dateProd = dateProd;
 	}
 	public String getTheme() {
