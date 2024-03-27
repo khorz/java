@@ -32,12 +32,13 @@ public class Facture {
         return prixTotal;
     }
 
-    public void payer(List <Film> selection, boolean abonnement) {
+    public void payer(Panier panier, Utilisateur user) {
+        boolean abonnement = user.getStatutAbonnement();
         if (abonnement) {
-            System.out.println("Paiement de " + getPrixTotalFilm(selection) * 0.95 + " € effectué.");
+            System.out.println("Paiement de " + getPrixTotalFilm(panier.getSelection()) * 0.95 + " € effectué.");
         } else {
-            System.out.println("Paiement de " + getPrixTotalFilm(selection) + " € effectué.");
+            System.out.println("Paiement de " + getPrixTotalFilm(panier.getSelection()) + " € effectué.");
         }
-        selection.clear();
+        panier.viderPanier();
     }
 }
