@@ -43,9 +43,10 @@ public class Panier {
 	
 	List<Film> catalogue ;
 	private List<Film> selection;
-
+	private Utilisateur user;
 	
 	public Panier(Utilisateur user) {
+		this.user = user;
 		this.selection = new ArrayList<Film>();
 		
 	}
@@ -96,7 +97,22 @@ public class Panier {
         });
 	}
 	
-
+	
+	
+	
+	/*public static void ajouterAuCatalogue(Film film) {
+		try {
+			if (catalogue.contains(film)){
+				System.out.println("Deja ajouté");
+			}
+			else {
+				catalogue.add(film);
+				System.out.println("Nouveau film disponible");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
 	
 	int tailleCatalogueAffiche = 10;
 	
