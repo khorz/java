@@ -62,7 +62,10 @@ public class Panier {
 	}
 
 
-	
+	public Utilisateur getUtilisateur() {
+		return user;
+	}
+
 
 
 	
