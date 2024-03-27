@@ -142,7 +142,7 @@ public class Panier {
 		}
 		
 		for (Film elt : catalogueAffiche) {
-			elt.visuFilm();
+			elt.visuFilm(user);
 		}
 	}
 	
