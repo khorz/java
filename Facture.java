@@ -34,7 +34,7 @@ public class Facture {
     }
 
     public void payer(Panier panier) {
-        user=panier.getUser();
+        user=panier.getUtilisateur();
         boolean abonnement = user.getStatutAbonnement();
         if (abonnement) {
             System.out.println("Paiement de " + getPrixTotalFilm(panier.getSelection()) * 0.95 + " € effectué.");
