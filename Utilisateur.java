@@ -57,6 +57,8 @@ public class Utilisateur {
 		this.preferences = Genre.values()[index-1];
 		this.historique = new ArrayList<Film>();
 		this.listeCommentairesPublies = new HashMap<String,Commentaire>();
+		String chemin = "";
+		EcrireJsonDirecte(this,chemin);
 
 	}
 	
@@ -73,7 +75,22 @@ public class Utilisateur {
 	}
 	
 
-	
+	public static boolean EcrireJsonDirecte(Utilisateur user, String fichierJSON) {
+		try {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String jsonStr = gson.toJson(user);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON));
+			bw.write(jsonStr);
+			bw.close();
+		} catch (IOException e) {
+			System.out.println(e.getStackTrace() + " : Probleme de fichier");
+			return false;
+		} catch (JsonParseException e) {
+			System.out.println(e.getStackTrace() + " : JsonParseException");
+			return false;
+		}
+		return true;
+	}
 	
 	
 	
