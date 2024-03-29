@@ -45,28 +45,28 @@ public class Film {
 		
 		
 		
-
+	String chemin = "";
         // Créer un objet Gson
-        //Gson gson = new Gson();
-
-        // Convertir l'objet Java en JSON
-        //String jsonFilm = gson.toJson(this);
-
-        /*try
-		{
-			FileWriter fw=new FileWriter("/home/cytech/Info/java/essai.txt");
-			BufferedWriter bw= new BufferedWriter(fw);
-			bw.write(jsonFilm);
-			
-			bw.close();
-		}
-		catch (Exception e)
-		{ 
-			System.out.println("Erreur "+e);
-		}*/
+      	EcrireJsonDirecte(this,chemin);
 	}
 
-		
+	public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
+		try {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String jsonStr = gson.toJson(film);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON));
+			bw.write(jsonStr);
+			bw.close();
+		} catch (IOException e) {
+			System.out.println(e.getStackTrace() + " : Probleme de fichier");
+			return false;
+		} catch (JsonParseException e) {
+			System.out.println(e.getStackTrace() + " : JsonParseException");
+			return false;
+		}
+		return true;
+	}
+
 		
 	
 	
