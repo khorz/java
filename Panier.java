@@ -162,6 +162,9 @@ public class Panier {
 
 
 	}
+	public void viderPanier(){
+		selection.clear();
+	}
 
 
 }
