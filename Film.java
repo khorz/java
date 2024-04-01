@@ -4,11 +4,8 @@ import java.time.LocalDate;
 import java.io.*;
 import java.util.*;
 import java.util.Comparator;
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
-import com.google.gson.GsonBuilder;
 
-
+import com.google.gson.*;
 
 
 public class Film {
@@ -46,7 +43,7 @@ public class Film {
 		
 		
 		
-		 String chemin="fe.json";
+		 String chemin="listfilm.json";
         // Créer un objet Gson
 		EcrireJsonDirecte(this,chemin);
 	}
@@ -101,6 +98,7 @@ public class Film {
 		}
 		return true;
 	}*/
+	
 
 	public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
 		try {
@@ -108,16 +106,45 @@ public class Film {
 					.registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
 					.setPrettyPrinting()
 					.create();
-			String jsonStr = gson.toJson(film);
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON, true) );
-			bw.write(jsonStr);
-			bw.close();
+
+			JsonArray jsonArray;
+			File file = new File(fichierJSON);
+
+			// Crée un nouveau tableau JSON vide si le fichier n'existe pas encore
+			if (!file.exists()) {
+				jsonArray = new JsonArray();
+			} else {
+				// Lecture du contenu existant du fichier JSON
+				JsonParser jsonParser = new JsonParser();
+				JsonElement jsonElement = jsonParser.parse(new FileReader(fichierJSON));
+
+				// Vérifie si le contenu est un tableau JSON
+				if (jsonElement.isJsonArray()) {
+					jsonArray = jsonElement.getAsJsonArray();
+				} else {
+					// Si ce n'est pas un tableau JSON valide, crée un nouveau tableau JSON vide
+					jsonArray = new JsonArray();
+				}
+			}
+
+			// Ajout du nouveau film au tableau JSON
+			jsonArray.add(gson.toJsonTree(film));
+
+			// Écriture du contenu mis à jour dans le fichier JSON
+			BufferedWriter writer = new BufferedWriter(new FileWriter(fichierJSON));
+			writer.write(gson.toJson(jsonArray));
+			writer.close();
+
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Problème de fichier : " + e.getMessage());
 			return false;
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+			System.out.println("Problème de manipulation JSON : " + e.getMessage());
+			return false;
 		}
-		return true;
 	}
 
 	public boolean addCom( Utilisateur user) {// ou faire venir mail comme rm   boolean set
