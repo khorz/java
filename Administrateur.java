@@ -3,7 +3,7 @@ package Projet;
 import Projet.Facture;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
+
 import java.util.Set;
 
 public class Administrateur {
@@ -65,8 +65,8 @@ public class Administrateur {
       System.out.println("1) récupérer moyenne des film et des commentaires");
       System.out.println("2) Prix moyen de tous vos achats");
       System.out.println("Entrez votre option");
-      Scanner sc = new Scanner(System.in);
-      int option = sc.nextInt();
+		  Random rand = new Random(); 
+		  int option = rand.nextInt(2-1 + 1)+1 ;
       if(option ==1){
         List<Film> film = Panier.lireJSON("listFilm.json");
         int compteur=0;
