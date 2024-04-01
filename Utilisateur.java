@@ -54,7 +54,7 @@ public class Utilisateur {
 		this.preferences = Genre.values()[index-1];
 		this.historique = new ArrayList<Film>();
 		this.listeCommentairesPublies = new HashMap<String,Commentaire>();
-		boolean ajt = ajouterUtilisateurJSON("Utilisateurs.json",this);
+		boolean ajt = ajouterUtilisateurJSON("listeUtilisateurs.json",this);
 		//boolean ajt = EcrireJsonDirecte(this,nomFichier);
 
 	}
