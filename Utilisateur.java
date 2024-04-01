@@ -1,7 +1,8 @@
-package projet;
+package Projet;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-
+import com.google.gson.JsonParseException;
 import java.util.HashMap;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Comparator;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
-
+import java.util.Date;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -65,7 +66,7 @@ public class Utilisateur {
         this.preferences = Genre.values()[index-1];
         this.historique = new ArrayList<Film>();
         this.listeCommentairesPublies = new HashMap<String,Commentaire>();
-        String chemin = "";
+        String chemin = "util.json";
         EcrireJsonDirecte(this,chemin);
 
     }
@@ -83,7 +84,7 @@ public class Utilisateur {
     }
 
 
-    public static boolean EcrireJsonDirecte(Utilisateur user, String fichierJSON) {
+    /*public static boolean EcrireJsonDirecte(Utilisateur user, String fichierJSON) {
         try {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String jsonStr = gson.toJson(user);
@@ -95,6 +96,23 @@ public class Utilisateur {
             return false;
         } catch (JsonParseException e) {
             System.out.println(e.getStackTrace() + " : JsonParseException");
+            return false;
+        }
+        return true;
+    }*/
+    public static boolean EcrireJsonDirecte(Utilisateur user, String fichierJSON) {
+        try {
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                    .setPrettyPrinting()
+                    .create();
+            String jsonStr = gson.toJson(user);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON));
+            bw.write(jsonStr);
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Problème de fichier : " + e.getMessage());
             return false;
         }
         return true;
