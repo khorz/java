@@ -1,0 +1,44 @@
+[
+  {
+    "mail": "email1@example.com",
+    "motDePasse": "fbao",
+    "nom": "Nom1",
+    "prenom": "Prenom1",
+    "naissance": "1990-01-01",
+    "adresse": "Adresse1",
+    "phraseSecrete": "Phrase secrète 1",
+    "statutAbonnement": false,
+    "age": 34,
+    "preferences": "animation",
+    "listeCommentairesPublies": {},
+    "historique": []
+  },
+  {
+    "mail": "email2@example.com",
+    "motDePasse": "motDePasse2",
+    "nom": "Nom2",
+    "prenom": "Prenom2",
+    "naissance": "1992-02-02",
+    "adresse": "Adresse2",
+    "phraseSecrete": "Phrase secrète 2",
+    "statutAbonnement": true,
+    "age": 32,
+    "preferences": "horreur",
+    "listeCommentairesPublies": {},
+    "historique": []
+  },
+  {
+    "mail": "email3@example.com",
+    "motDePasse": "languette",
+    "nom": "Nom3",
+    "prenom": "Prenom3",
+    "naissance": "1993-03-03",
+    "adresse": "Adresse3",
+    "phraseSecrete": "Phrase secrète 3",
+    "statutAbonnement": false,
+    "age": 31,
+    "preferences": "drame",
+    "listeCommentairesPublies": {},
+    "historique": []
+  }
+]
