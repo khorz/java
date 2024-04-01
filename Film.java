@@ -98,7 +98,7 @@ public class Film {
 		}
 		return true;
 	}*/
-	
+
 
 	public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
 		try {
@@ -425,5 +425,18 @@ public class Film {
 	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
-	
+
+	public String toString() {
+		return "Titre : " + titre + "\n" +
+				"Date de production : " + dateProd + "\n" +
+				"Thème : " + theme + "\n" +
+				"Genre : " + genre + "\n" +
+				"Prix : " + prix + "\n" +
+				"Résumé : " + resume + "\n" +
+				"Moyenne : " + moyenne + "\n" +
+				"Acteurs : " + acteurs + "\n" +
+				"Réalisateurs : " + realisation + "\n";
+		// Vous pouvez ajuster cette méthode pour inclure d'autres détails du film si nécessaire
+	}
+
 }
