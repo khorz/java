@@ -1,6 +1,14 @@
-package projet;
+package Projet;
+import java.time.LocalDate;
 import java.util.List;
-
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
@@ -25,7 +33,7 @@ public class Panier {
 
 
 	// Recuperation de la liste des films a partir du fichier JSON
-	public static List<Film> lireJSON(String fichierJSON) {
+	/*public static List<Film> lireJSON(String fichierJSON) {
 		try {
 			JsonReader reader = new JsonReader(new FileReader(fichierJSON));
 			// On peut lire un seul objet ou un tableau avec []
@@ -37,7 +45,27 @@ public class Panier {
 			System.out.println(e.getStackTrace() + " : JsonParseException");
 		}
 		return null;
+	}*/
+	public static List<Film> lireJSON(String fichierJSON) {
+		List<Film> films = new ArrayList<>();
+		try {
+			Gson gson = new GsonBuilder()
+					.registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+					.create();
+			FileReader reader = new FileReader(fichierJSON);
+			films = gson.fromJson(reader, new TypeToken<List<Film>>() {}.getType());
+			reader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichier non trouvé : " + e.getMessage());
+		} catch (JsonParseException e) {
+			System.out.println("Erreur de parsing JSON : " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Une erreur s'est produite : " + e.getMessage());
+		}
+		return films;
 	}
+
+
 
 	List<Film> catalogue ;
 	private List<Film> selection;
