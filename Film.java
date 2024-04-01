@@ -1,4 +1,4 @@
-package projet;//import com.google.gson.Gson;
+package Projet;//import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.io.*;
@@ -46,7 +46,7 @@ public class Film {
 		
 		
 		
-		 String chemin="";
+		 String chemin="fe.json";
         // Créer un objet Gson
 		EcrireJsonDirecte(this,chemin);
 	}
@@ -85,7 +85,7 @@ public class Film {
 
 
 
-	public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
+	/*public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
 		try {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String jsonStr = gson.toJson(film);
@@ -97,6 +97,24 @@ public class Film {
 			return false;
 		} catch (JsonParseException e) {
 			System.out.println(e.getStackTrace() + " : JsonParseException");
+			return false;
+		}
+		return true;
+	}*/
+
+	public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
+		try {
+			Gson gson = new GsonBuilder()
+					.registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+					.setPrettyPrinting()
+					.create();
+			String jsonStr = gson.toJson(film);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON, true) );
+			bw.write(jsonStr);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Problème de fichier : " + e.getMessage());
 			return false;
 		}
 		return true;
