@@ -59,7 +59,7 @@ public class Utilisateur {
 
 	}
 
-	static String nomFichier = "Utilisateurs.json";
+	static String nomFichier = "listeUtilisateurs.json";
 	public List<Film> getHistorique() {
 		return historique;
 	}
