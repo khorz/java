@@ -41,16 +41,8 @@ public class Utilisateur {
 		this.statutAbonnement = false;
 		this.age = age;
 
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Entrez numero de preference");
-		System.out.println("1)animation, 2)horreur, 3)drame, 4)comédie, 5)scienceFiction, 6)action, 7)documentaire, 8)thriller");
-		int index = scanner.nextInt();
-		while (index -1<0 || index-1>8) {
-			System.out.println("Entrez numero de preference");
-			index = scanner.nextInt();
-
-		}
-        //scanner.close();
+		Random rand = new Random(); 
+		int index = rand.nextInt(8 - 1 + 1) + 1;
 		this.preferences = Genre.values()[index-1];
 		this.historique = new ArrayList<Film>();
 		this.listeCommentairesPublies = new HashMap<String,Commentaire>();
@@ -325,16 +317,8 @@ public class Utilisateur {
 
     public void trierParDate() {
 
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Entrez numero de preference pour le tri");
-		System.out.println("1)Du plus vieux au plus récent, 2)Du plus récent au plus vieux");
-		int index = scanner.nextInt();
-		while (index !=2 && index!=1 ) {
-			System.out.println("Entrez numero de preference");
-			index = scanner.nextInt();
-
-		}
-        //scanner.close();
+		Random rand = new Random(); 
+		int index = rand.nextInt(2 - 1 + 1) + 1;
         if (index == 1) {
 			this.historique.sort(Comparator.comparing(Film::getDateProd));
 
