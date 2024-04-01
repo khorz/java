@@ -175,19 +175,11 @@ public class Film {
 					
 					String auteur=user.getMail();
 					
-					Scanner scanner1 = new Scanner(System.in);
-					System.out.println("Entrez une note entre 0 et 10");
-
-				       
-					int note = scanner1.nextInt();
-					while (note < 0 || note > 10) {
-						System.out.println("Entrez une note entre 0 et 10");
-						note = scanner1.nextInt();
-					}
+					Random rand = new Random(); 
+					int note = rand.nextInt(10  + 1) ;
 					
-					scanner1 = new Scanner(System.in);
-					System.out.println("Ecrivez votre commentaire");
-					String paragraphe = scanner1.nextLine();
+		
+					String paragraphe = "voici un paragraphe";
 					// ecrire note et paragraphe
 					
 					
@@ -253,19 +245,12 @@ public class Film {
 		if (this.comByUser.containsKey(user.getMail()) ) {
 			Commentaire com = this.comByUser.get(user.getMail());
 			
-			Scanner scanner1 = new Scanner(System.in);
-			System.out.println("Entrez une note entre 0 et 10");
-
-		       
-			int note = scanner1.nextInt();
-			while (note < 0 || note > 10) {
-				System.out.println("Entrez une note entre 0 et 10");
-				note = scanner1.nextInt();
-			}
+			Random rand = new Random(); 
+			int note = rand.nextInt(10  + 1) ;
 			
-			scanner1 = new Scanner(System.in);
-			System.out.println("Ecrivez votre commentaire");
-			String paragraphe = scanner1.nextLine();
+
+
+			String paragraphe = "Voici un commentaire modifié";
 			// ecrire note et paragraphe
 			com.setNote(note);
 			LocalDate aujourdhui = LocalDate.now();
@@ -327,13 +312,8 @@ public class Film {
 
 
 	public void trierParDate() {
-		Scanner rev = new Scanner(System.in);
-		System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
-		int reverse = rev.nextInt();
-		while (reverse != 0 && reverse != 1) {
-			System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
-			reverse = rev.nextInt();
-		}
+		Random rand = new Random(); 
+		int reverse = rand.nextInt(2-1 + 1)+1 ;
 		if(reverse == 1) {
 			this.commentaires.sort(Comparator.comparing(Commentaire::getDate_com));
 		}
@@ -347,13 +327,8 @@ public class Film {
 
 
     public void trierParNote() {
-		Scanner rev = new Scanner(System.in);
-		System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
-		int reverse = rev.nextInt();
-		while (reverse != 0 && reverse != 1) {
-			System.out.println("Pour l'avoir de la plus ancienne à la plus récente tapez 1 sinon 0");
-			reverse = rev.nextInt();
-		}
+		Random rand = new Random(); 
+		int reverse = rand.nextInt(2-1 + 1)+1 ;
 		if(reverse == 1) {
 			this.commentaires.sort(Comparator.comparing(Commentaire::getNote));
 		}
