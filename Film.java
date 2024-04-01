@@ -121,11 +121,29 @@ public class Film {
 				// Vérifie si le contenu est un tableau JSON
 				if (jsonElement.isJsonArray()) {
 					jsonArray = jsonElement.getAsJsonArray();
+
+					//vérifier si le film est déjà dedans
+
+					List<projetFilmJava.Film> films = new ArrayList<>();
+					// Parcourir les éléments du tableau JSON
+					for (JsonElement element : jsonArray) {
+						// Convertir chaque élément en objet Utilisateur en utilisant Gson
+						projetFilmJava.Film film_liste = new Gson().fromJson(element, projetFilmJava.Film.class);
+						films.add(film_liste);
+					}
+					for(Film elt : films){
+						if( elt.getCode() == film.getCode()){
+							System.out.println("Le film exitse déjà dans la base de donnée ");
+							return false;
+						}
+					}
+					
 				} else {
 					// Si ce n'est pas un tableau JSON valide, crée un nouveau tableau JSON vide
 					jsonArray = new JsonArray();
 				}
 			}
+
 
 			// Ajout du nouveau film au tableau JSON
 			jsonArray.add(gson.toJsonTree(film));
