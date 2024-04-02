@@ -1,4 +1,4 @@
-package projet;
+package com.cytech.data;
 
 import java.util.List;
 import java.util.ArrayList;
