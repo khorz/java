@@ -45,7 +45,7 @@ public class Utilisateur {
 		System.out.println("Entrez numero de preference");
 		System.out.println("1)animation, 2)horreur, 3)drame, 4)comédie, 5)scienceFiction, 6)action, 7)documentaire, 8)thriller");
 		int index = scanner.nextInt();
-		while (index -1<0 || index-1>8) {
+		while (index -1<0 || index-1>7) {
 			System.out.println("Entrez numero de preference");
 			index = scanner.nextInt();
 
