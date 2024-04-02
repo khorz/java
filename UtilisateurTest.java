@@ -1,4 +1,4 @@
-package Projet;
+package com.cytech.testsUnitaires;
 
 import org.junit.Test;
 
