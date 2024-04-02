@@ -9,18 +9,12 @@ import java.util.Set;
 public class Administrateur {
   private String id;
   private String mdp;
-  private String auteur;
-  private LocalDate date;
-  private Set<Commentaire> commentaires;
-  private float note;
+  
 
   public Administrateur(String id, String mdp, String auteur, LocalDate date, Set<Commentaire> commentaires, float note) {
     this.id=id;
     this.mdp=mdp;
-    this.auteur=auteur;
-    this.date=date;
-    this.commentaires=commentaires;
-    this.note=note;
+    
   }
     public String getId() {
       return id;
@@ -34,30 +28,6 @@ public class Administrateur {
     public void setMdp(String mdp) {
       this.mdp=mdp;
     }
-    public String getAuteur() {
-      return auteur;
-    }
-    public void setAuteur(String auteur) {
-      this.auteur=auteur;
-    }
-    public LocalDate getDate() {
-      return date;
-    }
-    public void setDate(LocalDate date) {
-      this.date=date;
-    }
-    public Set<Commentaire> getCommentaires() {
-      return commentaires;
-    }
-    public void setCommentaires(Set<Commentaire> commentaires) {
-      this.commentaires=commentaires;
-    }
-    public float getNote() {
-      return note;
-    }
-    public void setNote(float note) {
-      this.note=note;
-    }
 
 
 
@@ -67,6 +37,10 @@ public class Administrateur {
       System.out.println("Entrez votre option");
       Scanner sc = new Scanner(System.in);
       int option = sc.nextInt();
+      while (option !=2 || option !=1){
+        System.out.println("Entrez votre option");
+        option = sc.nextInt();
+      }
       if(option ==1){
         List<Film> film = Panier.lireJSON("listFilm.json");
         int compteur=0;
