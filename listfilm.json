@@ -1,0 +1,42 @@
+[
+  {
+    "code": "AAA1",
+    "titre": "Titanic",
+    "dateProd": "1997-06-10",
+    "theme": "drame",
+    "prix": 11.9,
+    "resume": "Un film d\u0027un bateau",
+    "moyenne": 4.3,
+    "genre": "animation",
+    "commentaires": [],
+    "comByUser": {},
+    "disable": false,
+    "acteurs": [
+      {
+        "nom": "dicap",
+        "prenom": "leo"
+      }
+    ],
+    "realisation": []
+  },
+  {
+    "code": "AAA2",
+    "titre": "Dune",
+    "dateProd": "2020-09-23",
+    "theme": "scienceFiction",
+    "prix": 9.99,
+    "resume": "Tres beau sable",
+    "moyenne": 4.8,
+    "genre": "animation",
+    "commentaires": [],
+    "comByUser": {},
+    "disable": false,
+    "acteurs": [
+      {
+        "nom": "dicap",
+        "prenom": "leo"
+      }
+    ],
+    "realisation": []
+  }
+]

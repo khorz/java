@@ -1,0 +1,30 @@
+[
+  {
+    "mail": "@gmail.com",
+    "motDePasse": "mdp123",
+    "nom": "nom",
+    "prenom": "prenom",
+    "naissance": "1997-06-10",
+    "adresse": "19 rue ",
+    "phraseSecrete": "phrase secrete",
+    "statutAbonnement": false,
+    "age": 20,
+    "preferences": "comédie",
+    "listeCommentairesPublies": {},
+    "historique": []
+  },
+  {
+    "mail": "lolo@gmail.com",
+    "motDePasse": "mdp123",
+    "nom": "nom1",
+    "prenom": "prenom1",
+    "naissance": "1997-06-10",
+    "adresse": "19 rue ",
+    "phraseSecrete": "phrase secrete",
+    "statutAbonnement": false,
+    "age": 22,
+    "preferences": "drame",
+    "listeCommentairesPublies": {},
+    "historique": []
+  }
+]
