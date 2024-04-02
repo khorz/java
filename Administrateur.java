@@ -1,4 +1,4 @@
-package Projet;
+package com.cytech.data;
 
 import Projet.Facture;
 import java.time.LocalDate;
