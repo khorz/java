@@ -1,4 +1,4 @@
-package Projet;
+package com.cytech.testsUnitaires;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;
