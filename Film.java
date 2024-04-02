@@ -80,25 +80,7 @@ public class Film {
 		this.realisation = realisation;
 	}
 
-
-
-	/*public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
-		try {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String jsonStr = gson.toJson(film);
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON));
-			bw.write(jsonStr);
-			bw.close();
-		} catch (IOException e) {
-			System.out.println(e.getStackTrace() + " : Probleme de fichier");
-			return false;
-		} catch (JsonParseException e) {
-			System.out.println(e.getStackTrace() + " : JsonParseException");
-			return false;
-		}
-		return true;
-	}*/
-
+	
 
 	public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
 		try {
@@ -121,29 +103,11 @@ public class Film {
 				// Vérifie si le contenu est un tableau JSON
 				if (jsonElement.isJsonArray()) {
 					jsonArray = jsonElement.getAsJsonArray();
-
-					//vérifier si le film est déjà dedans
-
-					List<projetFilmJava.Film> films = new ArrayList<>();
-					// Parcourir les éléments du tableau JSON
-					for (JsonElement element : jsonArray) {
-						// Convertir chaque élément en objet Utilisateur en utilisant Gson
-						projetFilmJava.Film film_liste = new Gson().fromJson(element, projetFilmJava.Film.class);
-						films.add(film_liste);
-					}
-					for(Film elt : films){
-						if( elt.getCode() == film.getCode()){
-							System.out.println("Le film exitse déjà dans la base de donnée ");
-							return false;
-						}
-					}
-					
 				} else {
 					// Si ce n'est pas un tableau JSON valide, crée un nouveau tableau JSON vide
 					jsonArray = new JsonArray();
 				}
 			}
-
 
 			// Ajout du nouveau film au tableau JSON
 			jsonArray.add(gson.toJsonTree(film));
@@ -184,7 +148,7 @@ public class Film {
 					
 					
 					//LocalDate aujourdhui = LocalDate.now();
-					Random rand = new Random(); int day = rand.nextInt(30 - 1 + 1) + 1;
+					int day = rand.nextInt(30 - 1 + 1) + 1;
 					//permet de tester filtrer par date
 					LocalDate aujourdhui = LocalDate.of(2023,5,day);
 					Commentaire com = new Commentaire(auteur,aujourdhui,note,paragraphe);
