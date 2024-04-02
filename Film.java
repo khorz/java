@@ -325,6 +325,7 @@ public class Film {
 			}
 			this.moyenne=moy/(this.commentaires.size());
 			System.out.println("com supprimé");
+			boolean maj = ajouterFilmJSON("listfilm.json",this);
 			return true;
 		}
 		System.out.println("Vous n'avez pas de com sur ce film");
@@ -361,7 +362,7 @@ public class Film {
 				moy=moy+ elt.getNote();
 			}
 			this.moyenne=moy/(this.commentaires.size());
-
+			boolean maj = ajouterFilmJSON("listfilm.json",this);
 			return true;
 		}
 		System.out.println("Vous n'avez pas de com sur ce film");
