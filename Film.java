@@ -284,6 +284,7 @@ public class Film {
 
 					//pour le mettre dans utilisateur
 					if (user.ajouterCommentaire(com,this.code)) {
+						user.ajouterCommentaire(com,this.code);
 						System.out.println("Com ajouter");
 					}
 					else {
@@ -297,7 +298,6 @@ public class Film {
 					}
 					this.moyenne=moy/(this.commentaires.size());
 					boolean maj = ajouterFilmJSON("listfilm.json",this);
-
 					return true;
 				}
 				System.out.println("Vous avez déjà mis un com");
