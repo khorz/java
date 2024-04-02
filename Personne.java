@@ -1,4 +1,4 @@
-package projet;
+package com.cytech.data;
 
 public class Personne {
   private String nom;
