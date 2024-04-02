@@ -84,23 +84,6 @@ public class Film {
 
 
 
-	/*public static boolean EcrireJsonDirecte(Film film, String fichierJSON) {
-		try {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String jsonStr = gson.toJson(film);
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fichierJSON));
-			bw.write(jsonStr);
-			bw.close();
-		} catch (IOException e) {
-			System.out.println(e.getStackTrace() + " : Probleme de fichier");
-			return false;
-		} catch (JsonParseException e) {
-			System.out.println(e.getStackTrace() + " : JsonParseException");
-			return false;
-		}
-		return true;
-	}*/
-
 	public static List<Film> lireJSON(String fichierJSON) {
 		List<Film> films = new ArrayList<>();
 		try {
@@ -145,11 +128,11 @@ public class Film {
 
 					//vérifier si le film est déjà dedans
 
-					List<projetFilmJava.Film> films = lireJSON("listfilm.json");
+					List<com.cytech.data.Film> films = lireJSON("listfilm.json");
 					// Parcourir les éléments du tableau JSON
 					for (JsonElement element : jsonArray) {
 						// Convertir chaque élément en objet Utilisateur en utilisant Gson
-						projetFilmJava.Film film_liste = new Gson().fromJson(element, projetFilmJava.Film.class);
+						com.cytech.data.Film film_liste = new Gson().fromJson(element, com.cytech.data.Film.class);
 						films.add(film_liste);
 
 					}
@@ -160,7 +143,7 @@ public class Film {
 							System.out.println("Le film a ete mis a jour");
 							for (JsonElement element : jsonArray) {
 								// Convertir chaque élément en objet Utilisateur en utilisant Gson
-								projetFilmJava.Film film_liste = new Gson().fromJson(element, projetFilmJava.Film.class);
+								com.cytech.data.Film film_liste = new Gson().fromJson(element, com.cytech.data.Film.class);
 								films.add(film_liste);
 							}
 							return true;
