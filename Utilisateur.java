@@ -54,12 +54,12 @@ public class Utilisateur {
 		this.preferences = Genre.values()[index-1];
 		this.historique = new ArrayList<Film>();
 		this.listeCommentairesPublies = new HashMap<String,Commentaire>();
-		boolean ajt = ajouterUtilisateurJSON("listeUtilisateurs.json",this);
+		boolean ajt = ajouterUtilisateurJSON("Utilisateurs.json",this);
 		//boolean ajt = EcrireJsonDirecte(this,nomFichier);
 
 	}
 
-	static String nomFichier = "listeUtilisateurs.json";
+	static String nomFichier = "Utilisateurs.json";
 	public List<Film> getHistorique() {
 		return historique;
 	}
@@ -77,10 +77,15 @@ public class Utilisateur {
 	public static List<Utilisateur> lireTableauJSON(String nomFichier) {
 		List<Utilisateur> utilisateurs = new ArrayList<>();
 		JsonParser parser = new JsonParser();
+		JsonArray jsonArray;
 
+		File file = new File(nomFichier);
 		try (FileReader reader = new FileReader(nomFichier)) {
+			if (!file.exists()) {
+				jsonArray = new JsonArray();
+			}
 			// Utilisation de JsonParser pour parser le fichier JSON
-			JsonArray jsonArray = parser.parse(reader).getAsJsonArray();
+			jsonArray = parser.parse(reader).getAsJsonArray();
 
 			// Parcourir les éléments du tableau JSON
 			for (JsonElement element : jsonArray) {
@@ -118,11 +123,27 @@ public class Utilisateur {
 
 		// Ajouter le nouvel utilisateur à la liste
 		for (Utilisateur u : utilisateurs){
+
 			if(Objects.equals(nouvelUtilisateur.getMail(), u.getMail())){
-				System.out.println("Deja enregistre");
-				return false;
-			}
-		}
+				utilisateurs.remove(u);
+				utilisateurs.add(nouvelUtilisateur);
+				//nouveauFilm.visuComFilm();
+				Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).setPrettyPrinting().create();
+				JsonArray jsonArray = new JsonArray();
+				for (Utilisateur u2 : utilisateurs) {
+					jsonArray.add(gson.toJsonTree(u2));
+				}
+
+				// Écrire le contenu JSON dans le fichier
+				try (FileWriter file = new FileWriter(nomFichier)) {
+					gson.toJson(jsonArray, file);
+					file.flush();
+					System.out.println("Film mis à jour");
+					return true;
+				} catch (IOException e) {
+					e.printStackTrace();
+					return false;
+				}}}
 		utilisateurs.add(nouvelUtilisateur);
 
 		// Convertir la liste mise à jour en JSON
@@ -277,6 +298,7 @@ public class Utilisateur {
 	// Methode ajout de commentaires
 	public boolean ajouterCommentaire(Commentaire commentaire, String codeFilm) {
 		this.listeCommentairesPublies.put(codeFilm, commentaire);
+		ajouterUtilisateurJSON("Utilisateurs.json",this);
 		return true;
 	}
 
