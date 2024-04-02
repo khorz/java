@@ -1,4 +1,4 @@
-package projet;
+package com.cytech.testsUnitaires;
 
 public class Personne {
   private String nom;
